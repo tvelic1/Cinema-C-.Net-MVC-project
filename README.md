@@ -34,7 +34,7 @@ Aplikacija za kino nudi korisnicima brojne mogućnosti pomoću kojih mogu pretra
   
 * Administrator:
   Administrator ima pravo pristupa svim mogućim funkcionalnostima aplikacije, dozvoljeno mu je da dodaje, briše, editiuje filmove.
-  Dostupni su mu podaci svih onih koji imaju nalog na aplikaciji, te mu je naravno dozvoljeno da umjesto nekoga rezerviše kartu, odnosno izbriše neku rezervaciju i     slične ostale brojne funkcionalnosti.
+  Dostupni su mu podaci svih onih koji imaju nalog na aplikaciji, te mu je naravno dozvoljeno da umjesto nekoga rezerviše kartu, odnosno izbriše neku rezervaciju i       slične ostale brojne funkcionalnosti.
   
-  * Banka:
-   S obzirom da je dozvoljeno kartično plaćanje za ovu aplikaciju, uloga banke kao aktera je da provjerava validnost bankovnog računa, te obavlja transkacije i sve ostale obaveze koje dolaze s kartičnim plaćanjem.
+* Banka:
+  S obzirom da je dozvoljeno kartično plaćanje za ovu aplikaciju, uloga banke kao aktera je da provjerava validnost bankovnog računa, te obavlja transkacije i sve       ostale obaveze koje dolaze s kartičnim plaćanjem.
