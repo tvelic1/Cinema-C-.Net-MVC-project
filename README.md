@@ -6,7 +6,7 @@
 
 * [Zijad Lendo](https://github.com/zlendo1)
 
-* [Hamza Pajevic](https://github.com/hpajevic1)
+* [Hamza Pajević](https://github.com/hpajevic1)
 
 * [Bakir Vreto](https://github.com/bvreto1)
 
@@ -27,7 +27,7 @@ Aplikacija za kino nudi korisnicima brojne mogućnosti pomoću kojih mogu pretra
 
 ## Akteri:
 * Gost:
-  Njemu je dozvoljen samo pregled aplikacije bez mogućnosti rezervisanja karte
+  Njemu je dozvoljen samo pregled aplikacije bez mogućnosti rezervisanja karte. Pod pregledom aplikacije podrazumjevamo pretragu filmova po raznim parametrima, pregled onih koji su do sada rezervisali, uvid u sve filmove, preporuke, ocjene filmova i ostalo...
   
 * Korisnik sa nalogom:
   Korisniku sa nalogom je dozvoljeno da rezerviše kartu za razliku od gosta, on naravno također ima pregled aplikacije.
