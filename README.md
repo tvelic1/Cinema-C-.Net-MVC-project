@@ -8,7 +8,7 @@
 
 * [Hamza Pajević](https://github.com/hpajevic1)
 
-* [Bakir Vreto](https://github.com/bvreto1)
+* [Bakir Vreto](https://github.com/bv1232)
 
 ## Opis teme:
 Aplikacija za kino nudi korisnicima brojne mogućnosti pomoću kojih mogu pretraživati filmove, rezervisati karte i slične funkcionalnosti koje susrećemo i u pravim aplikacijama za već postojeća kina, također jedan od aktera će biti i administrator koji će imati mogućnost da dodaje, briše, edituje filmove, te će moći raditi mnoge druge funkcionalnosti koje će biti prezentovane u sljedećem poglavlju.
