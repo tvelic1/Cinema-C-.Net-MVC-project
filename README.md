@@ -14,9 +14,10 @@
 Aplikacija za kino nudi korisnicima brojne mogućnosti pomoću kojih mogu pretraživati filmove, rezervisati karte i slične funkcionalnosti koje susrećemo i u pravim aplikacijama za već postojeća kina, također jedan od aktera će biti i administrator koji će imati mogućnost da dodaje, briše, edituje filmove, te će moći raditi mnoge druge funkcionalnosti koje će biti prezentovane u sljedećem poglavlju. Ove funkcionalnosti predstavljaju funkcionalnost upravljanja korisnicima, ali su radi boljeg pregleda svih mogućnosti u nastavku prikazane svaka zasebno.
 
 ## Funkcionalnosti:
-* Pretraživanje postojećih filmove
+* Pretraživanje postojećih filmova
 * Dodavanje novih filmova i kategorija
 * Brisanje filmova i kategorija
+* Editovanje filmova i kategorija
 * Rezervisanje karata
 * Grupisanje filmova po žanru
 * Popust za studente uz sliku indeksa
@@ -24,6 +25,7 @@ Aplikacija za kino nudi korisnicima brojne mogućnosti pomoću kojih mogu pretra
 * Mogućnost plaćanja preko bankovne kartice
 * Mogućnost povrata novca prilikom otkazivanja rezervacije u roku od 2 sata
 * Pretraživanje korisnika po filmovima za koje su rezervisali karte
+
 
 ## Akteri:
 * Gost:
