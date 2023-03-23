@@ -25,6 +25,7 @@ Aplikacija za kino nudi korisnicima brojne mogućnosti pomoću kojih mogu pretra
 * Mogućnost plaćanja preko bankovne kartice
 * Mogućnost povrata novca prilikom otkazivanja rezervacije u roku od 2 sata
 * Pretraživanje korisnika po filmovima za koje su rezervisali karte
+* Popust u fiksnom vremenskom periodu (npr. posljednji vikend u Decembru)
 
 
 ## Akteri:
