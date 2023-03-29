@@ -1,13 +1,9 @@
 # OOAD-G6-Filmofili
 ## Članovi tima:
 * [Tarik Velić](https://github.com/tvelic1)
-
 * [Ernad Žuga](https://github.com/ezuga1)
-
 * [Zijad Lendo](https://github.com/zlendo1)
-
 * [Hamza Pajević](https://github.com/hpajevic1)
-
 * [Bakir Vreto](https://github.com/bv1232)
 
 ## Opis teme:
@@ -15,17 +11,15 @@ Aplikacija za kino nudi korisnicima brojne mogućnosti pomoću kojih mogu pretra
 
 ## Funkcionalnosti:
 * Pretraživanje postojećih filmova
-* Dodavanje novih filmova i kategorija
-* Brisanje filmova i kategorija
-* Editovanje filmova i kategorija
+* Upravljanje korisnicima
 * Rezervisanje karata
-* Grupisanje filmova po žanru
-* Popust za studente uz sliku indeksa
+* Mogućnost kreiranja korisničkog računa
+* Popust za studente uz sliku indeksa, penzionere, djecu, popust za sve na neke određene dane
 * Mogućnost odabira sjedišta u sali
 * Mogućnost plaćanja preko bankovne kartice
 * Mogućnost povrata novca prilikom otkazivanja rezervacije u roku od 2 sata
 * Pretraživanje korisnika po filmovima za koje su rezervisali karte
-* Popust u fiksnom vremenskom periodu (npr. posljednji vikend u Decembru)
+* Preporuka filma
 
 
 ## Akteri:
