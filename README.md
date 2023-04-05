@@ -17,7 +17,7 @@ Aplikacija za kino nudi korisnicima brojne mogućnosti pomoću kojih mogu pretra
 * Popust za studente uz sliku indeksa, penzionere, djecu, popust za sve na neke određene dane
 * Mogućnost odabira sjedišta u sali
 * Mogućnost plaćanja preko bankovne kartice
-* Mogućnost povrata novca prilikom otkazivanja rezervacije u roku od 2 sata
+* Mogućnost povrata novca prilikom otkazivanja rezervacije u roku od 3 sata
 * Pretraživanje korisnika po filmovima za koje su rezervisali karte
 * Preporuka filma
 
