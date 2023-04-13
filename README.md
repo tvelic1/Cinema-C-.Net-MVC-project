@@ -1,4 +1,4 @@
-# OOAD-G6-Filmofili
+# OOAD-G6-Onako tim
 ## Članovi tima:
 * [Tarik Velić](https://github.com/tvelic1)
 * [Ernad Žuga](https://github.com/ezuga1)
