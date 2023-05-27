@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.5.33502.453
+VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OOAD-G6-najjaci_tim", "OOAD-G6-najjaci_tim.csproj", "{6B723B50-B9D5-410D-A5FE-9CC68800CC85}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OOAD-G6-najjaci_tim", "OOAD-G6-najjaci_tim.csproj", "{39BC26FC-A08F-4836-BECF-168A6804FB94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6B723B50-B9D5-410D-A5FE-9CC68800CC85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6B723B50-B9D5-410D-A5FE-9CC68800CC85}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6B723B50-B9D5-410D-A5FE-9CC68800CC85}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6B723B50-B9D5-410D-A5FE-9CC68800CC85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39BC26FC-A08F-4836-BECF-168A6804FB94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39BC26FC-A08F-4836-BECF-168A6804FB94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39BC26FC-A08F-4836-BECF-168A6804FB94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39BC26FC-A08F-4836-BECF-168A6804FB94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {BA95D557-0279-487A-A91F-F96BA8263898}
+		SolutionGuid = {4D9A3983-400D-41FE-9D56-3F5D2E3C4433}
 	EndGlobalSection
 EndGlobal
