@@ -39,7 +39,7 @@ namespace OOAD_G6_najjaci_tim.Data
             builder.Entity<Termin>().ToTable("Termin");
             builder.Entity<Sala>().ToTable("Sala");
             builder.Entity<SjedisteUTerminu>().ToTable("SjedisteUTerminu");
-            builder.Entity<Karta>().ToTable("Karta");
+            builder.Entity<Karta>().ToTable("Karta").HasOne(e => e.Rezervacija).WithMany().OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);
         }

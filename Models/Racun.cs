@@ -7,7 +7,7 @@ namespace OOAD_G6_najjaci_tim.Models
     {
         [Key, ForeignKey("KorisnikSaNalogom")]
         public int Id { get; set; }
-        public KorisnikSaNalogom K { get; set; }
+        public KorisnikSaNalogom KorisnikSaNalogom { get; set; }
 
         public int BrojRacuna { get; set; }
 

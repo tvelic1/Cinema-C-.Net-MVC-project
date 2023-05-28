@@ -4,7 +4,7 @@ namespace OOAD_G6_najjaci_tim.Models
 {
     public abstract class KorisnikSistema
     {
-        [System.ComponentModel.DataAnnotations.Key]
+        [Key]
         public int Id { get; set; }
 
         public string Ime { get; set; }
