@@ -2,5 +2,6 @@
 {
     public class Gost : KorisnikSistema
     {
+        public Gost() { }
     }
 }
