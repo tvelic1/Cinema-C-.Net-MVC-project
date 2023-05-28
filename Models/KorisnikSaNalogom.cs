@@ -5,8 +5,7 @@ namespace OOAD_G6_najjaci_tim.Models
 {
     public class KorisnikSaNalogom : KorisnikSistema
     {
-        [Key, ForeignKey("Racun")]
-        public new int Id { get; set; }
+       
 
         public string Password { get; set; }
 

@@ -8,11 +8,14 @@ namespace OOAD_G6_najjaci_tim.Models
         [Key]
         public int Id { get; set; }
 
-        [ForeignKey("Korisnik")]
+        [ForeignKey("KorisnikSaNalogom")]
         public int IdKorisnik { get; set; }
+        public KorisnikSaNalogom K { get; set; }
 
         [ForeignKey("Film")]
         public int IdFilm { get; set; }
+        public Film F
+        { get; set; }
 
         public Rezervacija() { }
     }
