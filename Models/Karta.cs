@@ -5,13 +5,15 @@ namespace OOAD_G6_najjaci_tim.Models
 {
     public class Karta
     {
-        [Key]
+        [Key, ForeignKey("SjedisteUTerminu")]
         public int Id { get; set; }
+
+        [ForeignKey("Korisnik")]
         public int IdKorisnik { get; set; }
+
         [ForeignKey("Film")]
         public int IdFilm { get; set; }
-        [ForeignKey("SjedisteUTerminu")]
-        public int IdSjedisteUTerminu { get; set; }
+
         [ForeignKey("Rezervacija")]
         public int IdRezervacija { get; set; } = 0;
 

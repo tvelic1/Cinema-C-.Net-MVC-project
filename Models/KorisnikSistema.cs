@@ -6,9 +6,13 @@ namespace OOAD_G6_najjaci_tim.Models
     {
         [Key]
         public int Id { get; set; }
+
         public string Ime { get; set; }
+
         public string Prezime { get; set; }
+
         public string DateRodjenja { get; set; }
+
         public int BrojTelefona { get; set; }
 
         public KorisnikSistema() { }

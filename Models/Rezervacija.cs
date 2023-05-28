@@ -7,8 +7,10 @@ namespace OOAD_G6_najjaci_tim.Models
     {
         [Key]
         public int Id { get; set; }
+
         [ForeignKey("Korisnik")]
         public int IdKorisnik { get; set; }
+
         [ForeignKey("Film")]
         public int IdFilm { get; set; }
 

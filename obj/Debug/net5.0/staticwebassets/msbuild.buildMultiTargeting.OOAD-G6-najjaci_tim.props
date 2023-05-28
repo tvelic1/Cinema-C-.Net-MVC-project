@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\OOAD-G6-najjaci_tim.props" />
+</Project>

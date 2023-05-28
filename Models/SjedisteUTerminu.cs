@@ -5,12 +5,15 @@ namespace OOAD_G6_najjaci_tim.Models
 {
     public class SjedisteUTerminu
     {
-        [Key]
+        [Key, ForeignKey("SjedisteUTerminu")]
         public int Id { get; set; }
+
         [ForeignKey("Sala")]
         public int IdSala { get; set; }
+
         [ForeignKey("Termin")]
         public int IdTermin { get; set; }
+
         public int BrojSjedista { get; set; }
 
         public SjedisteUTerminu() { }
