@@ -1,4 +1,4 @@
-# OOAD-G6-Onako tim
+# OOAD-G6-
 ## Članovi tima:
 * [Tarik Velić](https://github.com/tvelic1)
 * [Ernad Žuga](https://github.com/ezuga1)
