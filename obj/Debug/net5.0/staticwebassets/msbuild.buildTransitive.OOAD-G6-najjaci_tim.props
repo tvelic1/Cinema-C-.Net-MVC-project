@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\OOAD-G6-najjaci_tim.props" />
-</Project>
