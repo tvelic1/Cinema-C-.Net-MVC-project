@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -34,9 +35,10 @@ namespace OOAD_G6_najjaci_tim.Controllers
 
             // Filtrirajte filmove prema odabranom žanru
 
-            var film = await _context.Film
-               .FirstOrDefaultAsync(m => m.Id == genre);
-            
+            var film = await _context.Film.ToListAsync();
+            film.RemoveAll(x => x.Trajanje != genre);
+
+
 
             return View(film);
         }
