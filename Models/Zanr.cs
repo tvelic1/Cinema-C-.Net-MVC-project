@@ -9,11 +9,12 @@ namespace OOAD_G6_najjaci_tim.Models
         Horor,
         [Display(Name = "Romantika")]
         Romantika,
-        [Display(Name = "SF")]
+        [Display(Name = "SCIFI")]
         SCIFI,
         [Display(Name = "Dokumentarni")]
         Dokumentarni,
         [Display(Name = "Triler")]
         Triler
-    }
+    } 
+
 }

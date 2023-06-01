@@ -36,12 +36,13 @@ namespace OOAD_G6_najjaci_tim.Controllers
 
             var film = await _context.Film
                .FirstOrDefaultAsync(m => m.Id == genre);
-         
+            
 
-            return View("Index",film);
+            return View(film);
         }
 
-   
+
+
 
 
 

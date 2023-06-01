@@ -1,67 +1,15 @@
-﻿@model IEnumerable<OOAD_G6_najjaci_tim.Models.Film>
+﻿@model OOAD_G6_najjaci_tim.Models.Film
 
 @{
     ViewData["Title"] = "Proba";
 }
 
-<h1>Index</h1>
+<h1>Proba</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<p>Id: @Model.Id</p>
+<p>Ime: @Model.Ime</p>
+<p>Zanr: @Model.Zanr</p>
+<p>Trajanje: @Model.Trajanje</p>
+<p>Ocjena: @Model.Ocjena</p>
 
-<div class="col-md-3">
-    <h4>Žanrovi</h4>
-    <ul>
-        <li><a href="All">Svi</a></li>
-        <li><a href="Horor">Horor</a></li>
-        <li><a href="Akcija">Akcija</a></li>
-        <li><a href="/Film/Index?genre=Drama">Drama</a></li>
-        <li><a href="/Film/Index?genre=Komedija">Komedija</a></li>
-        <!-- Dodajte ostale žanrove ovisno o potrebama -->
-    </ul>
-</div>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Ime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Zanr)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Trajanje)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ocjena)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Ime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Zanr)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Trajanje)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Ocjena)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<a asp-action="Index">Back to Index</a>
