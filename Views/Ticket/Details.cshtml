@@ -1,0 +1,42 @@
+﻿@model OOAD_G6_najjaci_tim.Models.Karta
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Karta</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SjedisteUTerminu)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SjedisteUTerminu.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.KorisnikSaNalogom)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.KorisnikSaNalogom.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Film)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Film.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Rezervacija)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Rezervacija.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

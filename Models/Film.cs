@@ -8,7 +8,7 @@ namespace OOAD_G6_najjaci_tim.Models
         public int Id { get; set; }
 
         public string Ime { get; set; }
-
+        [EnumDataType(typeof(Zanr))]
         public Zanr Zanr { get; set; }
 
         public int Trajanje { get; set; }
