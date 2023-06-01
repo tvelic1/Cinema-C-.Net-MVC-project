@@ -27,21 +27,26 @@ namespace OOAD_G6_najjaci_tim.Controllers
         {
             return View(await _context.Film.ToListAsync());
         }
-        public async Task<IActionResult> Proba(int? genre)
+        public async Task<IActionResult> Proba(Zanr genre)
         {
-            //  IEnumerable<Film> films;
+            if (genre == null)
+            {
+                // Ako genre nije odabran, možete prikazati sve filmove ili preusmjeriti na drugu stranicu s porukom
+                var filmovi = await _context.Film.ToListAsync();
+                return View(filmovi);
+            }
+            else
+            {
+                Zanr selectedGenre = (Zanr)genre;
 
+                var filmovi = await _context.Film
+                    .Where(f => f.Zanr == genre)
+                    .ToListAsync();
 
-
-            // Filtrirajte filmove prema odabranom žanru
-
-            var film = await _context.Film.ToListAsync();
-            film.RemoveAll(x => x.Trajanje != genre);
-
-
-
-            return View(film);
+                return View(filmovi);
+            }
         }
+
 
 
 
