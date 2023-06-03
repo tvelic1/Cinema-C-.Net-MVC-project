@@ -115,6 +115,30 @@ namespace OOAD_G6_najjaci_tim.Controllers
             }
             return View(korisnikSaNalogom);
         }
+        public async Task<IActionResult> Loginn([Bind("Password,Email")] KorisnikSaNalogom korisnikSaNalogom)
+        {
+            if (ModelState.IsValid)
+            {
+                // Provjeri podatke za prijavu u bazi podataka
+                bool validCredentials = await _context.KorisnikSaNalogom
+                    .AnyAsync(kr => kr.Password == korisnikSaNalogom.Password && kr.Email == korisnikSaNalogom.Email);
+
+                if (validCredentials)
+                {
+                    // Uspješna prijava, preusmjeri na Index akciju u HomeControlleru
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    // Pogrešni podaci za prijavu, dodaj poruku o grešci u ModelState
+                    ModelState.AddModelError(string.Empty, "Neispravni podaci za prijavu");
+                }
+            }
+
+            // Ako podaci nisu ispravni ili dolazi do greške, ponovno prikaži Login1 view
+            return View();
+        }
+
 
         // GET: User/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -149,5 +173,28 @@ namespace OOAD_G6_najjaci_tim.Controllers
         {
             return _context.KorisnikSaNalogom.Any(e => e.Id == id);
         }
+    
+    public IActionResult Login1()
+    {
+            return View("Login1");
+    
+    }
+ 
+    private bool ProvjeriPodatke(string username, string password)
+        {
+            var user = _context.KorisnikSaNalogom.FirstOrDefault(u => u.Email == username && u.Password == password);
+
+            if (user != null)
+            {
+                // Ako korisnik postoji u bazi podataka, vraćamo true
+                return true;
+            }
+
+            // Ako korisnik ne postoji ili podaci nisu ispravni, vraćamo false
+            return false;
+        }
+
+
+
     }
 }
