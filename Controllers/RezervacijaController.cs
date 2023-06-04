@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using OOAD_G6_najjaci_tim.Data;
 using OOAD_G6_najjaci_tim.Models;
 
@@ -14,10 +15,12 @@ namespace OOAD_G6_najjaci_tim.Controllers
     public class RezervacijaController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMemoryCache _cache;
 
-        public RezervacijaController(ApplicationDbContext context)
+      
+        public RezervacijaController(ApplicationDbContext context, IMemoryCache memoryCache)
         {
-            _context = context;
+            _context = context; _cache = memoryCache;
         }
 
         // GET: Rezervacija
@@ -46,14 +49,16 @@ namespace OOAD_G6_najjaci_tim.Controllers
 
             return View(rezervacija);
         }
+    
 
         // GET: Rezervacija/Create
         public IActionResult Create(string ime,int id)
-        { var x= TempData["KorisnikId"];
+        { 
             ViewData["Film"] = ime;
             ViewData["IdFilm"] = id;
-            ViewData["IdKorisnikSaNalogom"] = x;
-            TempData["a"] = id;
+            if (_cache.TryGetValue("KorisnikId", out int korisnikId))
+                ViewData["IdKorisnikSaNalogom"] = korisnikId;
+            
             return View();
         }
 

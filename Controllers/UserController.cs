@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using OOAD_G6_najjaci_tim.Data;
 using OOAD_G6_najjaci_tim.Models;
 
@@ -14,10 +15,13 @@ namespace OOAD_G6_najjaci_tim.Controllers
     public class UserController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMemoryCache _cache;
 
-        public UserController(ApplicationDbContext context)
+        
+
+        public UserController(ApplicationDbContext context, IMemoryCache memoryCache)
         {
-            _context = context;
+            _context = context; _cache = memoryCache;
         }
 
         // GET: User
@@ -116,18 +120,19 @@ namespace OOAD_G6_najjaci_tim.Controllers
             }
             return View(korisnikSaNalogom);
         }
+       
+
         public async Task<IActionResult> Loginn([Bind("Password,Email")] KorisnikSaNalogom korisnikSaNalogom)
         {
             if (ModelState.IsValid)
             {
-               
                 // Provjeri podatke za prijavu u bazi podataka
                 KorisnikSaNalogom korisnik = await _context.KorisnikSaNalogom
                     .FirstOrDefaultAsync(kr => kr.Email == korisnikSaNalogom.Email && kr.Password == korisnikSaNalogom.Password);
 
                 if (korisnik != null)
                 {
-                    TempData["KorisnikId"] = korisnik.Id;
+                    _cache.Set("KorisnikId", korisnik.Id, TimeSpan.FromDays(30)); // Primer: keširanje na 30 dana
 
                     // Preusmjeri na Index akciju u HomeControlleru
                     return RedirectToAction("Index", "Movie");
@@ -142,6 +147,7 @@ namespace OOAD_G6_najjaci_tim.Controllers
             // Ako podaci nisu ispravni ili dolazi do greške, ponovno prikaži Login1 view
             return View();
         }
+
 
 
 
