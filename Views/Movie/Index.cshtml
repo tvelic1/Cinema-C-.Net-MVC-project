@@ -47,7 +47,9 @@
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
-                    <a asp-action="Proba" asp-route-genre="@item.Zanr">SameGenreMovies</a>
+                    <a asp-action="Proba" asp-route-genre="@item.Zanr">SameGenreMovies</a> |
+                    <a asp-controller="Rezervacija"  asp-action="Create" asp-route-ime="@item.Ime" asp-route-id="@item.Id">Reserve</a> |
+                    
                 </td>
             </tr>
         }

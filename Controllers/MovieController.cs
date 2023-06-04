@@ -46,6 +46,11 @@ namespace OOAD_G6_najjaci_tim.Controllers
                 return View(filmovi);
             }
         }
+        public IActionResult Reserve()
+        {
+            return RedirectToAction("Create", "Rezervacija");
+        }
+
 
 
 

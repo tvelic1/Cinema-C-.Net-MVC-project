@@ -14,12 +14,21 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="IdKorisnikSaNalogom" class="control-label"></label>
-                <select asp-for="IdKorisnikSaNalogom" class ="form-control" asp-items="ViewBag.IdKorisnikSaNalogom"></select>
+                <input type="text" asp-for="IdKorisnikSaNalogom" class="form-control" readonly="readonly" value="@ViewData["IdKorisnikSaNalogom"]" />
             </div>
             <div class="form-group">
                 <label asp-for="IdFilm" class="control-label"></label>
-                <select asp-for="IdFilm" class ="form-control" asp-items="ViewBag.IdFilm"></select>
+                <input type="text" asp-for="IdFilm" class="form-control" readonly="readonly" value="@ViewData["IdFilm"]" />
             </div>
+            <div class="form-group">
+                <label asp-for="Film.Ime" class="control-label"></label>
+                <input type="text" asp-for="Film.Ime" class="form-control" readonly="readonly" value="@ViewData["Film"]" />
+            </div>
+
+            <!-- Dodajte skrivena polja za IdKorisnikSaNalogom i IdFilm -->
+            <input type="hidden" name="idKorisnikSaNalogom" value="@ViewData["IdKorisnikSaNalogom"]" />
+            <input type="hidden" name="idFilm" value="@ViewData["IdFilm"]" />
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -32,5 +41,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

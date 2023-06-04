@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -119,14 +120,17 @@ namespace OOAD_G6_najjaci_tim.Controllers
         {
             if (ModelState.IsValid)
             {
+               
                 // Provjeri podatke za prijavu u bazi podataka
-                bool validCredentials = await _context.KorisnikSaNalogom
-                    .AnyAsync(kr => kr.Password == korisnikSaNalogom.Password && kr.Email == korisnikSaNalogom.Email);
+                KorisnikSaNalogom korisnik = await _context.KorisnikSaNalogom
+                    .FirstOrDefaultAsync(kr => kr.Email == korisnikSaNalogom.Email && kr.Password == korisnikSaNalogom.Password);
 
-                if (validCredentials)
+                if (korisnik != null)
                 {
-                    // Uspješna prijava, preusmjeri na Index akciju u HomeControlleru
-                    return RedirectToAction("Index", "Home");
+                    TempData["KorisnikId"] = korisnik.Id;
+
+                    // Preusmjeri na Index akciju u HomeControlleru
+                    return RedirectToAction("Index", "Movie");
                 }
                 else
                 {
@@ -138,6 +142,7 @@ namespace OOAD_G6_najjaci_tim.Controllers
             // Ako podaci nisu ispravni ili dolazi do greške, ponovno prikaži Login1 view
             return View();
         }
+
 
 
         // GET: User/Delete/5

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -47,30 +48,54 @@ namespace OOAD_G6_najjaci_tim.Controllers
         }
 
         // GET: Rezervacija/Create
-        public IActionResult Create()
-        {
-            ViewData["IdFilm"] = new SelectList(_context.Film, "Id", "Id");
-            ViewData["IdKorisnikSaNalogom"] = new SelectList(_context.KorisnikSaNalogom, "Id", "Id");
+        public IActionResult Create(string ime,int id)
+        { var x= TempData["KorisnikId"];
+            ViewData["Film"] = ime;
+            ViewData["IdFilm"] = id;
+            ViewData["IdKorisnikSaNalogom"] = x;
+            TempData["a"] = id;
             return View();
         }
 
         // POST: Rezervacija/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IdKorisnikSaNalogom,IdFilm")] Rezervacija rezervacija)
+
+        
+        public async Task<IActionResult> Create(int idKorisnikSaNalogom, int idFilm)
         {
             if (ModelState.IsValid)
             {
+                // Kreiranje objekta Rezervacija s parametrima
+                Rezervacija rezervacija = new Rezervacija
+                {
+                    IdKorisnikSaNalogom = idKorisnikSaNalogom,
+                    IdFilm = idFilm
+                };
+
+                // Dodavanje rezervacije u bazu podataka
                 _context.Add(rezervacija);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdFilm"] = new SelectList(_context.Film, "Id", "Id", rezervacija.IdFilm);
-            ViewData["IdKorisnikSaNalogom"] = new SelectList(_context.KorisnikSaNalogom, "Id", "Id", rezervacija.IdKorisnikSaNalogom);
-            return View(rezervacija);
+
+            // Prikaz forme za kreiranje ako ModelState nije ispravan
+            ViewData["Film"] = new SelectList(_context.Film, "Ime", "Ime");
+            ViewData["IdFilm"] = new SelectList(_context.Film, "Id", "Id", idFilm);
+            ViewData["IdKorisnikSaNalogom"] = new SelectList(_context.KorisnikSaNalogom, "Id", "Id", idKorisnikSaNalogom);
+            return View();
         }
+
+
+
+
+
+
+
+
 
         // GET: Rezervacija/Edit/5
         public async Task<IActionResult> Edit(int? id)
