@@ -33,6 +33,22 @@ namespace OOAD_G6_najjaci_tim.Controllers
 
             return View();
         }
+        public async Task<IActionResult> Filter(int? genre)
+        {
+            var query = _context.Karta.Include(k => k.KorisnikSaNalogom).Include(f=>f.Film).Include(l=>l.SjedisteUTerminu).Include(l=>l.Rezervacija).Include(k=>k.Termin);
+            var karte = await query.ToListAsync();
+
+            if (genre == null)
+            {
+                return View("Index",karte);
+            }
+            else
+            {
+                karte.RemoveAll(k => k.KorisnikSaNalogom.Id != genre);
+                return View("Index",karte);
+            }
+        }
+
 
         // GET: Kartas
         public async Task<IActionResult> Index()

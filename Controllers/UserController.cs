@@ -63,9 +63,10 @@ namespace OOAD_G6_najjaci_tim.Controllers
         {
             if (ModelState.IsValid)
             {
+                _cache.Set("KorisnikkId", korisnikSaNalogom.Id, TimeSpan.FromDays(30));
                 _context.Add(korisnikSaNalogom);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Login1","User");
             }
             return View(korisnikSaNalogom);
         }

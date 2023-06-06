@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using OOAD_G6_najjaci_tim.Data;
 using OOAD_G6_najjaci_tim.Models;
 
@@ -13,10 +14,12 @@ namespace OOAD_G6_najjaci_tim.Controllers
     public class RacunsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMemoryCache _cache;
 
-        public RacunsController(ApplicationDbContext context)
+
+        public RacunsController(ApplicationDbContext context, IMemoryCache memoryCache)
         {
-            _context = context;
+            _context = context; _cache = memoryCache;
         }
 
         // GET: Racuns
@@ -48,7 +51,9 @@ namespace OOAD_G6_najjaci_tim.Controllers
         // GET: Racuns/Create
         public IActionResult Create()
         {
-            ViewData["IdKorisnikSaNalogom"] = new SelectList(_context.KorisnikSaNalogom, "Id", "Id");
+            if (_cache.TryGetValue("KorisnikId", out int korisnikId))
+                ViewData["IdKorisnikSaNalogom"] = korisnikId;
+
             return View();
         }
 
@@ -63,7 +68,7 @@ namespace OOAD_G6_najjaci_tim.Controllers
             {
                 _context.Add(racun);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index","Movie");
             }
             ViewData["IdKorisnikSaNalogom"] = new SelectList(_context.KorisnikSaNalogom, "Id", "Id", racun.IdKorisnikSaNalogom);
             return View(racun);

@@ -70,10 +70,13 @@
         }
 </style>
 
-<h1>Index</h1>
+<h1>Movies</h1>
 
 <p>
+    <a asp-controller="Racuns" asp-action="Create"  class="btn btn-primary">CreateBankAccount</a>
     <a asp-action="Create" class="btn btn-primary">Create New</a>
+    <a asp-controller="Rezervacija" asp-action="Index" class="btn btn-primary">AllReservations</a>
+    <a asp-controller="Kartas" asp-action="Index" class="btn btn-primary">AllTickets</a>
 </p>
 
 <div class="table-responsive">
@@ -99,7 +102,7 @@
                         <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
                         <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
                         <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-primary">Delete</a>
-                        <a asp-action="Proba" asp-route-genre="@item.Zanr" class="btn btn-primary">Same Genre Movies</a>
+                        <a asp-action="Proba" asp-route-genre="@item.Zanr" class="btn btn-primary">SameGenreMovies</a>
                         <a asp-controller="Rezervacija" asp-action="Create" asp-route-ime="@item.Ime" asp-route-id="@item.Id" class="btn btn-primary">Reserve</a>
                     </td>
                 </tr>

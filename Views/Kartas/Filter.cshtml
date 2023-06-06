@@ -17,7 +17,7 @@
                 @Html.DisplayNameFor(model => model.SjedisteUTerminu)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.KorisnikSaNalogom)
+                @Html.DisplayNameFor(model => model.IdKorisnikSaNalogom)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IdFilm)
@@ -28,9 +28,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Termin)
             </th>
-            <th>
-                Film
-            </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -51,16 +49,14 @@
                     @Html.DisplayFor(modelItem => item.Rezervacija.Id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Termin.Vrijeme)
+                    @Html.DisplayFor(modelItem => item.Termin.Id)
                 </td>
-                <td>
-                    @item.Film.Ime
-                </td>
+               
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-                    <a asp-action="Filter" asp-route-genre="@item.KorisnikSaNalogom.Id" class="btn btn-primary">TicketsForThisUser</a>
+                    <a asp-action="Filter" asp-route-genre="@item.IdKorisnikSaNalogom" class="btn btn-primary">TicketsForThisUser</a>
                 </td>
             </tr>
         }
