@@ -66,13 +66,22 @@ namespace OOAD_G6_najjaci_tim.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(racun);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index","Movie");
+                try
+                {
+                    _context.Add(racun);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index", "Movie");
+                }
+                catch (DbUpdateException)
+                {
+                    ModelState.AddModelError(string.Empty, "Već postoji račun za odabranog korisnika.");
+                }
             }
-            ViewData["IdKorisnikSaNalogom"] = new SelectList(_context.KorisnikSaNalogom, "Id", "Id", racun.IdKorisnikSaNalogom);
+
+            //ViewData["IdKorisnikSaNalogom"] = new SelectList(_context.KorisnikSaNalogom, "Id", "Id", racun.IdKorisnikSaNalogom);
             return View(racun);
         }
+
 
         // GET: Racuns/Edit/5
         public async Task<IActionResult> Edit(int? id)
