@@ -4,54 +4,106 @@
     ViewData["Title"] = "Index";
 }
 
+<style>
+    .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        cursor: pointer;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+
+    .btn-primary {
+        color: #fff;
+        background-color: #337ab7;
+        border-color: #2e6da4;
+    }
+
+        .btn-primary:hover,
+        .btn-primary:focus,
+        .btn-primary:active,
+        .btn-primary.active,
+        .open .dropdown-toggle.btn-primary {
+            color: #fff;
+            background-color: #286090;
+            border-color: #204d74;
+        }
+
+    .table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .table tbody + tbody {
+            border-top: 2px solid #dee2e6;
+        }
+
+        .table .table {
+            background-color: #fff;
+        }
+
+    .table-bordered {
+        border: 1px solid #dee2e6;
+    }
+
+        .table-bordered th,
+        .table-bordered td {
+            border: 1px solid #dee2e6;
+        }
+
+        .table-bordered thead th,
+        .table-bordered thead td {
+            border-bottom-width: 2px;
+        }
+</style>
+
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Ime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Zanr)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Trajanje)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ocjena)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Ime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Zanr)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Trajanje)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Ocjena)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
-                    <a asp-action="Proba" asp-route-genre="@item.Zanr">SameGenreMovies</a> |
-                    <a asp-controller="Rezervacija"  asp-action="Create" asp-route-ime="@item.Ime" asp-route-id="@item.Id">Reserve</a> |
-                    
-                </td>
+                <th>@Html.DisplayNameFor(model => model.Ime)</th>
+                <th>@Html.DisplayNameFor(model => model.Zanr)</th>
+                <th>@Html.DisplayNameFor(model => model.Trajanje)</th>
+                <th>@Html.DisplayNameFor(model => model.Ocjena)</th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Ime)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Zanr)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Trajanje)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Ocjena)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-primary">Delete</a>
+                        <a asp-action="Proba" asp-route-genre="@item.Zanr" class="btn btn-primary">Same Genre Movies</a>
+                        <a asp-controller="Rezervacija" asp-action="Create" asp-route-ime="@item.Ime" asp-route-id="@item.Id" class="btn btn-primary">Reserve</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

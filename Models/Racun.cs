@@ -5,8 +5,11 @@ namespace OOAD_G6_najjaci_tim.Models
 {
     public class Racun
     {
-        [Key, ForeignKey("KorisnikSaNalogom")]
+        [Key]
         public int Id { get; set; }
+
+        [ForeignKey("KorisnikSaNalogom")]
+        public int IdKorisnikSaNalogom { get; set; }
         public KorisnikSaNalogom KorisnikSaNalogom { get; set; }
 
         public int BrojRacuna { get; set; }

@@ -2,9 +2,74 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <a href="@Url.Action("Login1", "User")" class="btn btn-primary">Go to Login</a>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-pzjw8khpwD5i4Lv6XyS6jYZ5v53P2w0VvSV9X+SLIC2IqJ+u8KwM6PF5Ck25MScf" crossorigin="anonymous">
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .jumbotron {
+        background-color: #007bff;
+        color: #fff;
+        padding: 100px;
+    }
+
+        .jumbotron h1 {
+            font-size: 48px;
+        }
+
+        .jumbotron p {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+    .btn-go-to-login {
+        font-size: 24px;
+        padding: 15px 30px;
+    }
+</style>
+
+<div class="jumbotron text-center">
+    <h1 class="display-4">Welcome to Cinema App</h1>
+    <p>Explore and book your favorite movies at our cinema.</p>
+    <a href="@Url.Action("Login1", "User")" class="btn btn-primary btn-go-to-login">Go to Login</a>
 </div>
 
+<div class="container">
+    <h2>Featured Movies</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="~/path/to/avatar.jpg" class="card-img-top" alt="Avatar">
+                <div class="card-body">
+                    <h5 class="card-title">Avatar</h5>
+                    <p class="card-text">Description of Avatar.</p>
+                    <a href="#" class="btn btn-primary">Learn More</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="~/Documentacion/Harry.jpg" class="card-img-top" alt="Harry Potter">
+                <div class="card-body">
+                    <h5 class="card-title">Harry Potter</h5>
+                    <p class="card-text">Description of Harry Potter.</p>
+                    <a href="#" class="btn btn-primary">Learn More</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="~/path/to/lord_of_the_rings.jpg" class="card-img-top" alt="Lord of the Rings">
+                <div class="card-body">
+                    <h5 class="card-title">Lord of the Rings</h5>
+                    <p class="card-text">Description of Lord of the Rings.</p>
+                    <a href="#" class="btn btn-primary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-K7oStzKb2A9BAkv

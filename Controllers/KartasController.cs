@@ -5,28 +5,43 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using OOAD_G6_najjaci_tim.Data;
 using OOAD_G6_najjaci_tim.Models;
 
 namespace OOAD_G6_najjaci_tim.Controllers
 {
-    public class TicketController : Controller
+    public class KartasController : Controller
     {
-        private readonly ApplicationDbContext _context;
 
-        public TicketController(ApplicationDbContext context)
+        private readonly ApplicationDbContext _context;
+        private readonly IMemoryCache _cache;
+
+
+        public KartasController(ApplicationDbContext context, IMemoryCache memoryCache)
         {
-            _context = context;
+            _context = context; _cache = memoryCache;
+        }
+        public IActionResult Create(int idr, int id)
+        {
+            ViewData["IdRezervacija"] = idr;
+            ViewData["IdFilm"] = id;
+            ViewData["IdSjedisteUTerminu"] = new SelectList(_context.SjedisteUTerminu, "Id", "Id");
+            ViewData["IdTermin"] = new SelectList(_context.Termin, "Id", "Id");
+            if (_cache.TryGetValue("KorisnikId", out int korisnikId))
+                ViewData["IdKorisnikSaNalogom"] = korisnikId;
+
+            return View();
         }
 
-        // GET: Ticket
+        // GET: Kartas
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Karta.Include(k => k.Film).Include(k => k.KorisnikSaNalogom).Include(k => k.Rezervacija).Include(k => k.SjedisteUTerminu);
+            var applicationDbContext = _context.Karta.Include(k => k.Film).Include(k => k.KorisnikSaNalogom).Include(k => k.Rezervacija).Include(k => k.SjedisteUTerminu).Include(k => k.Termin);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Ticket/Details/5
+        // GET: Kartas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -39,6 +54,7 @@ namespace OOAD_G6_najjaci_tim.Controllers
                 .Include(k => k.KorisnikSaNalogom)
                 .Include(k => k.Rezervacija)
                 .Include(k => k.SjedisteUTerminu)
+                .Include(k => k.Termin)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (karta == null)
             {
@@ -48,37 +64,44 @@ namespace OOAD_G6_najjaci_tim.Controllers
             return View(karta);
         }
 
-        // GET: Ticket/Create
-        public IActionResult Create()
-        {
-            ViewData["IdFilm"] = new SelectList(_context.Film, "Id", "Id");
-            ViewData["IdKorisnikSaNalogom"] = new SelectList(_context.KorisnikSaNalogom, "Id", "Id");
-            ViewData["IdRezervacija"] = new SelectList(_context.Rezervacija, "Id", "Id");
-            ViewData["Id"] = new SelectList(_context.SjedisteUTerminu, "Id", "Id");
-            return View();
-        }
+        // GET: Kartas/Create
+        
 
-        // POST: Ticket/Create
+        // POST: Kartas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IdKorisnikSaNalogom,IdFilm,IdRezervacija")] Karta karta)
+        
+        public async Task<IActionResult> Create(int idKorisnikSaNalogom, int idRezervacija, int idFilm, [Bind("IdSjedisteUTerminu,IdTermin")] Karta karta)
         {
             if (ModelState.IsValid)
             {
+                karta.IdKorisnikSaNalogom = idKorisnikSaNalogom;
+                karta.IdFilm = idFilm;
+                karta.IdRezervacija = idRezervacija;
+
                 _context.Add(karta);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["IdFilm"] = new SelectList(_context.Film, "Id", "Id", karta.IdFilm);
             ViewData["IdKorisnikSaNalogom"] = new SelectList(_context.KorisnikSaNalogom, "Id", "Id", karta.IdKorisnikSaNalogom);
             ViewData["IdRezervacija"] = new SelectList(_context.Rezervacija, "Id", "Id", karta.IdRezervacija);
-            ViewData["Id"] = new SelectList(_context.SjedisteUTerminu, "Id", "Id", karta.Id);
+            ViewData["IdSjedisteUTerminu"] = new SelectList(_context.SjedisteUTerminu, "Id", "Id", karta.IdSjedisteUTerminu);
+            ViewData["IdTermin"] = new SelectList(_context.Termin, "Id", "Id", karta.IdTermin);
+
+            // Dodajte vrijednosti u ViewData kako bi se prikazale u HTML-u
+            ViewData["IdKorisnikSaNalogom"] = idKorisnikSaNalogom;
+            ViewData["IdFilm"] = idFilm;
+            ViewData["IdRezervacija"] = idRezervacija;
+
             return View(karta);
         }
 
-        // GET: Ticket/Edit/5
+
+        // GET: Kartas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -94,16 +117,17 @@ namespace OOAD_G6_najjaci_tim.Controllers
             ViewData["IdFilm"] = new SelectList(_context.Film, "Id", "Id", karta.IdFilm);
             ViewData["IdKorisnikSaNalogom"] = new SelectList(_context.KorisnikSaNalogom, "Id", "Id", karta.IdKorisnikSaNalogom);
             ViewData["IdRezervacija"] = new SelectList(_context.Rezervacija, "Id", "Id", karta.IdRezervacija);
-            ViewData["Id"] = new SelectList(_context.SjedisteUTerminu, "Id", "Id", karta.Id);
+            ViewData["IdSjedisteUTerminu"] = new SelectList(_context.SjedisteUTerminu, "Id", "Id", karta.IdSjedisteUTerminu);
+            ViewData["IdTermin"] = new SelectList(_context.Termin, "Id", "Id", karta.IdTermin);
             return View(karta);
         }
 
-        // POST: Ticket/Edit/5
+        // POST: Kartas/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,IdKorisnikSaNalogom,IdFilm,IdRezervacija")] Karta karta)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,IdSjedisteUTerminu,IdKorisnikSaNalogom,IdFilm,IdRezervacija,IdTermin")] Karta karta)
         {
             if (id != karta.Id)
             {
@@ -133,11 +157,12 @@ namespace OOAD_G6_najjaci_tim.Controllers
             ViewData["IdFilm"] = new SelectList(_context.Film, "Id", "Id", karta.IdFilm);
             ViewData["IdKorisnikSaNalogom"] = new SelectList(_context.KorisnikSaNalogom, "Id", "Id", karta.IdKorisnikSaNalogom);
             ViewData["IdRezervacija"] = new SelectList(_context.Rezervacija, "Id", "Id", karta.IdRezervacija);
-            ViewData["Id"] = new SelectList(_context.SjedisteUTerminu, "Id", "Id", karta.Id);
+            ViewData["IdSjedisteUTerminu"] = new SelectList(_context.SjedisteUTerminu, "Id", "Id", karta.IdSjedisteUTerminu);
+            ViewData["IdTermin"] = new SelectList(_context.Termin, "Id", "Id", karta.IdTermin);
             return View(karta);
         }
 
-        // GET: Ticket/Delete/5
+        // GET: Kartas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -150,6 +175,7 @@ namespace OOAD_G6_najjaci_tim.Controllers
                 .Include(k => k.KorisnikSaNalogom)
                 .Include(k => k.Rezervacija)
                 .Include(k => k.SjedisteUTerminu)
+                .Include(k => k.Termin)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (karta == null)
             {
@@ -159,7 +185,7 @@ namespace OOAD_G6_najjaci_tim.Controllers
             return View(karta);
         }
 
-        // POST: Ticket/Delete/5
+        // POST: Kartas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

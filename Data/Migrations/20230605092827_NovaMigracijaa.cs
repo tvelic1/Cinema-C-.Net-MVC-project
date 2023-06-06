@@ -2,7 +2,7 @@
 
 namespace OOAD_G6_najjaci_tim.Data.Migrations
 {
-    public partial class PrvaMigracija : Migration
+    public partial class NovaMigracijaa : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,11 +45,25 @@ namespace OOAD_G6_najjaci_tim.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Kapacitet = table.Column<int>(type: "int", nullable: false),
+                    brojSale = table.Column<int>(type: "int", nullable: false),
                     Je4D = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sala", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SjedisteUTerminu",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BrojSjedista = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SjedisteUTerminu", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -122,37 +136,12 @@ namespace OOAD_G6_najjaci_tim.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SjedisteUTerminu",
+                name: "Racun",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdSala = table.Column<int>(type: "int", nullable: false),
-                    IdTermin = table.Column<int>(type: "int", nullable: false),
-                    BrojSjedista = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SjedisteUTerminu", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SjedisteUTerminu_Sala_IdSala",
-                        column: x => x.IdSala,
-                        principalTable: "Sala",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_SjedisteUTerminu_Termin_IdTermin",
-                        column: x => x.IdTermin,
-                        principalTable: "Termin",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Racun",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    IdKorisnikSaNalogom = table.Column<int>(type: "int", nullable: false),
                     BrojRacuna = table.Column<int>(type: "int", nullable: false),
                     CSC = table.Column<int>(type: "int", nullable: false),
                     DatumIsteka = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -162,8 +151,8 @@ namespace OOAD_G6_najjaci_tim.Data.Migrations
                 {
                     table.PrimaryKey("PK_Racun", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Racun_KorisnikSaNalogom_Id",
-                        column: x => x.Id,
+                        name: "FK_Racun_KorisnikSaNalogom_IdKorisnikSaNalogom",
+                        column: x => x.IdKorisnikSaNalogom,
                         principalTable: "KorisnikSaNalogom",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -199,10 +188,13 @@ namespace OOAD_G6_najjaci_tim.Data.Migrations
                 name: "Karta",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdSjedisteUTerminu = table.Column<int>(type: "int", nullable: false),
                     IdKorisnikSaNalogom = table.Column<int>(type: "int", nullable: false),
                     IdFilm = table.Column<int>(type: "int", nullable: false),
-                    IdRezervacija = table.Column<int>(type: "int", nullable: false)
+                    IdRezervacija = table.Column<int>(type: "int", nullable: false),
+                    IdTermin = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -226,9 +218,15 @@ namespace OOAD_G6_najjaci_tim.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Karta_SjedisteUTerminu_Id",
-                        column: x => x.Id,
+                        name: "FK_Karta_SjedisteUTerminu_IdSjedisteUTerminu",
+                        column: x => x.IdSjedisteUTerminu,
                         principalTable: "SjedisteUTerminu",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Karta_Termin_IdTermin",
+                        column: x => x.IdTermin,
+                        principalTable: "Termin",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -249,6 +247,21 @@ namespace OOAD_G6_najjaci_tim.Data.Migrations
                 column: "IdRezervacija");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Karta_IdSjedisteUTerminu",
+                table: "Karta",
+                column: "IdSjedisteUTerminu");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Karta_IdTermin",
+                table: "Karta",
+                column: "IdTermin");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Racun_IdKorisnikSaNalogom",
+                table: "Racun",
+                column: "IdKorisnikSaNalogom");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Rezervacija_IdFilm",
                 table: "Rezervacija",
                 column: "IdFilm");
@@ -257,16 +270,6 @@ namespace OOAD_G6_najjaci_tim.Data.Migrations
                 name: "IX_Rezervacija_IdKorisnikSaNalogom",
                 table: "Rezervacija",
                 column: "IdKorisnikSaNalogom");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SjedisteUTerminu_IdSala",
-                table: "SjedisteUTerminu",
-                column: "IdSala");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SjedisteUTerminu_IdTermin",
-                table: "SjedisteUTerminu",
-                column: "IdTermin");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -284,22 +287,22 @@ namespace OOAD_G6_najjaci_tim.Data.Migrations
                 name: "Racun");
 
             migrationBuilder.DropTable(
+                name: "Sala");
+
+            migrationBuilder.DropTable(
                 name: "Rezervacija");
 
             migrationBuilder.DropTable(
                 name: "SjedisteUTerminu");
 
             migrationBuilder.DropTable(
+                name: "Termin");
+
+            migrationBuilder.DropTable(
                 name: "Film");
 
             migrationBuilder.DropTable(
                 name: "KorisnikSaNalogom");
-
-            migrationBuilder.DropTable(
-                name: "Sala");
-
-            migrationBuilder.DropTable(
-                name: "Termin");
 
             migrationBuilder.DropTable(
                 name: "KorisnikSistema");

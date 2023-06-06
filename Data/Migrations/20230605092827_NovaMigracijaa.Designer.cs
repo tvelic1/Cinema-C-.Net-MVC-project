@@ -10,8 +10,8 @@ using OOAD_G6_najjaci_tim.Data;
 namespace OOAD_G6_najjaci_tim.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230528222140_PrvaMigracija")]
-    partial class PrvaMigracija
+    [Migration("20230605092827_NovaMigracijaa")]
+    partial class NovaMigracijaa
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -248,7 +248,9 @@ namespace OOAD_G6_najjaci_tim.Data.Migrations
             modelBuilder.Entity("OOAD_G6_najjaci_tim.Models.Karta", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("IdFilm")
                         .HasColumnType("int");
@@ -259,6 +261,12 @@ namespace OOAD_G6_najjaci_tim.Data.Migrations
                     b.Property<int>("IdRezervacija")
                         .HasColumnType("int");
 
+                    b.Property<int>("IdSjedisteUTerminu")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdTermin")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IdFilm");
@@ -266,6 +274,10 @@ namespace OOAD_G6_najjaci_tim.Data.Migrations
                     b.HasIndex("IdKorisnikSaNalogom");
 
                     b.HasIndex("IdRezervacija");
+
+                    b.HasIndex("IdSjedisteUTerminu");
+
+                    b.HasIndex("IdTermin");
 
                     b.ToTable("Karta");
                 });
@@ -297,7 +309,9 @@ namespace OOAD_G6_najjaci_tim.Data.Migrations
             modelBuilder.Entity("OOAD_G6_najjaci_tim.Models.Racun", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("BrojRacuna")
                         .HasColumnType("int");
@@ -308,10 +322,15 @@ namespace OOAD_G6_najjaci_tim.Data.Migrations
                     b.Property<string>("DatumIsteka")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("IdKorisnikSaNalogom")
+                        .HasColumnType("int");
+
                     b.Property<double>("StanjeRacuna")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdKorisnikSaNalogom");
 
                     b.ToTable("Racun");
                 });
@@ -351,6 +370,9 @@ namespace OOAD_G6_najjaci_tim.Data.Migrations
                     b.Property<int>("Kapacitet")
                         .HasColumnType("int");
 
+                    b.Property<int>("brojSale")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Sala");
@@ -366,17 +388,7 @@ namespace OOAD_G6_najjaci_tim.Data.Migrations
                     b.Property<int>("BrojSjedista")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdSala")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdTermin")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("IdSala");
-
-                    b.HasIndex("IdTermin");
 
                     b.ToTable("SjedisteUTerminu");
                 });
@@ -485,12 +497,6 @@ namespace OOAD_G6_najjaci_tim.Data.Migrations
 
             modelBuilder.Entity("OOAD_G6_najjaci_tim.Models.Karta", b =>
                 {
-                    b.HasOne("OOAD_G6_najjaci_tim.Models.SjedisteUTerminu", "SjedisteUTerminu")
-                        .WithOne("Karta")
-                        .HasForeignKey("OOAD_G6_najjaci_tim.Models.Karta", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("OOAD_G6_najjaci_tim.Models.Film", "Film")
                         .WithMany()
                         .HasForeignKey("IdFilm")
@@ -509,6 +515,18 @@ namespace OOAD_G6_najjaci_tim.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("OOAD_G6_najjaci_tim.Models.SjedisteUTerminu", "SjedisteUTerminu")
+                        .WithMany()
+                        .HasForeignKey("IdSjedisteUTerminu")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OOAD_G6_najjaci_tim.Models.Termin", "Termin")
+                        .WithMany()
+                        .HasForeignKey("IdTermin")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Film");
 
                     b.Navigation("KorisnikSaNalogom");
@@ -516,13 +534,15 @@ namespace OOAD_G6_najjaci_tim.Data.Migrations
                     b.Navigation("Rezervacija");
 
                     b.Navigation("SjedisteUTerminu");
+
+                    b.Navigation("Termin");
                 });
 
             modelBuilder.Entity("OOAD_G6_najjaci_tim.Models.Racun", b =>
                 {
                     b.HasOne("OOAD_G6_najjaci_tim.Models.KorisnikSaNalogom", "KorisnikSaNalogom")
                         .WithMany()
-                        .HasForeignKey("Id")
+                        .HasForeignKey("IdKorisnikSaNalogom")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -546,25 +566,6 @@ namespace OOAD_G6_najjaci_tim.Data.Migrations
                     b.Navigation("Film");
 
                     b.Navigation("KorisnikSaNalogom");
-                });
-
-            modelBuilder.Entity("OOAD_G6_najjaci_tim.Models.SjedisteUTerminu", b =>
-                {
-                    b.HasOne("OOAD_G6_najjaci_tim.Models.Sala", "Sala")
-                        .WithMany()
-                        .HasForeignKey("IdSala")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OOAD_G6_najjaci_tim.Models.Termin", "Termin")
-                        .WithMany()
-                        .HasForeignKey("IdTermin")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Sala");
-
-                    b.Navigation("Termin");
                 });
 
             modelBuilder.Entity("OOAD_G6_najjaci_tim.Models.Administrator", b =>
@@ -592,11 +593,6 @@ namespace OOAD_G6_najjaci_tim.Data.Migrations
                         .HasForeignKey("OOAD_G6_najjaci_tim.Models.KorisnikSaNalogom", "Id")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("OOAD_G6_najjaci_tim.Models.SjedisteUTerminu", b =>
-                {
-                    b.Navigation("Karta");
                 });
 #pragma warning restore 612, 618
         }
