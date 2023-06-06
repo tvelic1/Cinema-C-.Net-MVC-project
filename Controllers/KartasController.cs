@@ -77,13 +77,23 @@ namespace OOAD_G6_najjaci_tim.Controllers
         {
             if (ModelState.IsValid)
             {
+                var racun = await _context.Racun.FirstOrDefaultAsync(r => r.IdKorisnikSaNalogom == idKorisnikSaNalogom);
                 karta.IdKorisnikSaNalogom = idKorisnikSaNalogom;
                 karta.IdFilm = idFilm;
                 karta.IdRezervacija = idRezervacija;
+                if (racun.StanjeRacuna > 5)
+                {
+                    _context.Add(karta);
+                    await _context.SaveChangesAsync();
 
-                _context.Add(karta);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                    //  await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Nemate dovoljno novca na računu."; return View();
+                }
+             
             }
 
             ViewData["IdFilm"] = new SelectList(_context.Film, "Id", "Id", karta.IdFilm);

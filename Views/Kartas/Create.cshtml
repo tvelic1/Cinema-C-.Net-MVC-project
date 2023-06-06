@@ -4,14 +4,18 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>BuyTicket</h1>
 
-<h4>Karta</h4>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+            }
             <div class="form-group">
                 <label asp-for="IdSjedisteUTerminu" class="control-label"></label>
                 <select asp-for="IdSjedisteUTerminu" class="form-control" asp-items="ViewBag.IdSjedisteUTerminu"></select>
@@ -37,7 +41,7 @@
             <input type="hidden" name="idFilm" value="@ViewData["IdFilm"]" />
             <input type="hidden" name="idRezervacija" value="@ViewData["IdRezervacija"]" />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Buy" class="btn btn-primary" />
             </div>
         </form>
     </div>
