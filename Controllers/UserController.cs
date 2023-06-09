@@ -133,19 +133,19 @@ namespace OOAD_G6_najjaci_tim.Controllers
 
                 if (korisnik != null)
                 {
-                    _cache.Set("KorisnikId", korisnik.Id, TimeSpan.FromDays(30)); // Primer: keširanje na 30 dana
+                    _cache.Set("KorisnikId", korisnik.Id, TimeSpan.FromDays(30)); 
 
-                    // Preusmjeri na Index akciju u HomeControlleru
+                 
                     return RedirectToAction("Index", "Movie");
                 }
                 else
                 {
-                    // Pogrešni podaci za prijavu, dodaj poruku o grešci u ModelState
+                    
                     ModelState.AddModelError(string.Empty, "Neispravni podaci za prijavu");
                 }
             }
 
-            // Ako podaci nisu ispravni ili dolazi do greške, ponovno prikaži Login1 view
+           
             return View();
         }
 
@@ -198,11 +198,9 @@ namespace OOAD_G6_najjaci_tim.Controllers
 
             if (user != null)
             {
-                // Ako korisnik postoji u bazi podataka, vraćamo true
                 return true;
             }
 
-            // Ako korisnik ne postoji ili podaci nisu ispravni, vraćamo false
             return false;
         }
 

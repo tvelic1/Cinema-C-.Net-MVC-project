@@ -31,7 +31,7 @@ namespace OOAD_G6_najjaci_tim.Controllers
         {
             if (genre == null)
             {
-                // Ako genre nije odabran, možete prikazati sve filmove ili preusmjeriti na drugu stranicu s porukom
+              
                 var filmovi = await _context.Film.ToListAsync();
                 return View(filmovi);
             }

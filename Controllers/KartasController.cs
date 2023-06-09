@@ -27,7 +27,7 @@ namespace OOAD_G6_najjaci_tim.Controllers
             ViewData["IdRezervacija"] = idr;
             ViewData["IdFilm"] = id;
             ViewData["IdSjedisteUTerminu"] = new SelectList(_context.SjedisteUTerminu, "Id", "Id");
-            ViewData["IdTermin"] = new SelectList(_context.Termin, "Id", "Id");
+            ViewData["IdTermin"] = new SelectList(_context.Termin, "Id", "Vrijeme");
             if (_cache.TryGetValue("KorisnikId", out int korisnikId))
                 ViewData["IdKorisnikSaNalogom"] = korisnikId;
 
@@ -117,8 +117,6 @@ namespace OOAD_G6_najjaci_tim.Controllers
             ViewData["IdRezervacija"] = new SelectList(_context.Rezervacija, "Id", "Id", karta.IdRezervacija);
             ViewData["IdSjedisteUTerminu"] = new SelectList(_context.SjedisteUTerminu, "Id", "Id", karta.IdSjedisteUTerminu);
             ViewData["IdTermin"] = new SelectList(_context.Termin, "Id", "Id", karta.IdTermin);
-
-            // Dodajte vrijednosti u ViewData kako bi se prikazale u HTML-u
             ViewData["IdKorisnikSaNalogom"] = idKorisnikSaNalogom;
             ViewData["IdFilm"] = idFilm;
             ViewData["IdRezervacija"] = idRezervacija;

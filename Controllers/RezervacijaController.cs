@@ -74,14 +74,13 @@ namespace OOAD_G6_najjaci_tim.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Kreiranje objekta Rezervacija s parametrima
                 Rezervacija rezervacija = new Rezervacija
                 {
                     IdKorisnikSaNalogom = idKorisnikSaNalogom,
                     IdFilm = idFilm
                 };
 
-                // Dodavanje rezervacije u bazu podataka
+              
                 _context.Add(rezervacija);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

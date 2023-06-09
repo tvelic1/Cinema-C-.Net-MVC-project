@@ -33,10 +33,10 @@
                 <input type="text" asp-for="IdRezervacija" class="form-control" readonly="readonly" value="@ViewData["IdRezervacija"]" />
             </div>
             <div class="form-group">
-                <label asp-for="IdTermin" class="control-label"></label>
+                <label asp-for="Termin" class="control-label"></label>
                 <select asp-for="IdTermin" class="form-control" asp-items="ViewBag.IdTermin"></select>
             </div>
-            <!-- Dodajte skrivena polja za IdKorisnikSaNalogom, IdFilm i IdRezervacija -->
+       
             <input type="hidden" name="idKorisnikSaNalogom" value="@ViewData["IdKorisnikSaNalogom"]" />
             <input type="hidden" name="idFilm" value="@ViewData["IdFilm"]" />
             <input type="hidden" name="idRezervacija" value="@ViewData["IdRezervacija"]" />
