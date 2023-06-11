@@ -130,14 +130,14 @@ namespace OOAD_G6_najjaci_tim.Controllers
                 // Provjeri podatke za prijavu u bazi podataka
                 KorisnikSaNalogom korisnik = await _context.KorisnikSaNalogom
                     .FirstOrDefaultAsync(kr => kr.Email == korisnikSaNalogom.Email && kr.Password == korisnikSaNalogom.Password);
-
+                Administrator admin = await _context.Administrator
+                   .FirstOrDefaultAsync(kr => kr.Email == korisnikSaNalogom.Email && kr.Password == korisnikSaNalogom.Password);
                 if (korisnik != null)
                 {
-                    _cache.Set("KorisnikId", korisnik.Id, TimeSpan.FromDays(30)); 
+                    _cache.Set("KorisnikId", korisnik.Id, TimeSpan.FromDays(30));
 
-                 
                     return RedirectToAction("Index", "Movie");
-                }
+                }else if (admin != null) { return RedirectToAction("Index", "Movie"); }
                 else
                 {
                     
