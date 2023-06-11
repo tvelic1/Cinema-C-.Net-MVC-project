@@ -40,12 +40,12 @@ namespace OOAD_G6_najjaci_tim.Controllers
 
             if (genre == null)
             {
-                return View("Index",karte);
+                return View("ForAdmin",karte);
             }
             else
             {
                 karte.RemoveAll(k => k.KorisnikSaNalogom.Id != genre);
-                return View("Index",karte);
+                return View("ForAdmin",karte);
             }
         }
 
@@ -53,8 +53,26 @@ namespace OOAD_G6_najjaci_tim.Controllers
         // GET: Kartas
         public async Task<IActionResult> Index()
         {
+            if (_cache.TryGetValue("KorisnikId", out int korisnikId))
+            {
+                var applicationDbContext = _context.Karta
+                    .Include(k => k.Film)
+                    .Include(k => k.KorisnikSaNalogom)
+                    .Include(k => k.Rezervacija)
+                    .Include(k => k.SjedisteUTerminu)
+                    .Include(k => k.Termin)
+                    .Where(k => k.IdKorisnikSaNalogom == korisnikId);
+
+                return View(await applicationDbContext.ToListAsync());
+            }
+
+            return View();
+        }
+
+        public async Task<IActionResult> ForAdmin()
+        {
             var applicationDbContext = _context.Karta.Include(k => k.Film).Include(k => k.KorisnikSaNalogom).Include(k => k.Rezervacija).Include(k => k.SjedisteUTerminu).Include(k => k.Termin);
-            return View(await applicationDbContext.ToListAsync());
+            return View("ForAdmin",await applicationDbContext.ToListAsync());
         }
 
         // GET: Kartas/Details/5
@@ -93,7 +111,8 @@ namespace OOAD_G6_najjaci_tim.Controllers
         {
             if (ModelState.IsValid)
             {
-                var racun = await _context.Racun.FirstOrDefaultAsync(r => r.IdKorisnikSaNalogom == idKorisnikSaNalogom);
+                if (_cache.TryGetValue("KorisnikId", out int genre)) ;
+                    var racun = await _context.Racun.FirstOrDefaultAsync(r => r.IdKorisnikSaNalogom == idKorisnikSaNalogom);
                 karta.IdKorisnikSaNalogom = idKorisnikSaNalogom;
                 karta.IdFilm = idFilm;
                 karta.IdRezervacija = idRezervacija;
@@ -103,7 +122,7 @@ namespace OOAD_G6_najjaci_tim.Controllers
                     await _context.SaveChangesAsync();
 
                     //  await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Index", new {genre=genre});
                 }
                 else
                 {
@@ -176,7 +195,7 @@ namespace OOAD_G6_najjaci_tim.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ForAdmin));
             }
             ViewData["IdFilm"] = new SelectList(_context.Film, "Id", "Id", karta.IdFilm);
             ViewData["IdKorisnikSaNalogom"] = new SelectList(_context.KorisnikSaNalogom, "Id", "Id", karta.IdKorisnikSaNalogom);
@@ -217,7 +236,7 @@ namespace OOAD_G6_najjaci_tim.Controllers
             var karta = await _context.Karta.FindAsync(id);
             _context.Karta.Remove(karta);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(ForAdmin));
         }
 
         private bool KartaExists(int id)

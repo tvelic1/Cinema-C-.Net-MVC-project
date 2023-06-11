@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using OOAD_G6_najjaci_tim.Data;
 using OOAD_G6_najjaci_tim.Models;
 
@@ -15,11 +16,11 @@ namespace OOAD_G6_najjaci_tim.Controllers
     public class MovieController : Controller
     {
         private readonly ApplicationDbContext _context;
-        //private readonly ApplicationDbContext dbContext;
+        private readonly IMemoryCache _cache;
 
-        public MovieController(ApplicationDbContext context)
+        public MovieController(ApplicationDbContext context, IMemoryCache Memorycache)
         {
-            _context = context;
+            _context = context; _cache=Memorycache;
         }
 
         // GET: Movie
@@ -49,8 +50,12 @@ namespace OOAD_G6_najjaci_tim.Controllers
         public IActionResult Reserve()
         {
             return RedirectToAction("Create", "Rezervacija");
-        }
 
+        }
+        public async Task<IActionResult> AdminsPanel()
+        {
+            return View("AdminsPanel",await _context.Film.ToListAsync());
+        }
 
 
 
@@ -92,12 +97,34 @@ namespace OOAD_G6_najjaci_tim.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(film);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+               
+                if (_cache.TryGetValue("KorisnikEmail", out string email))
+                {
+                  
+                    if (_cache.TryGetValue("KorisnikPassword", out string korisnikId))
+                    {
+                       
+                        Administrator admin = await _context.Administrator.FirstOrDefaultAsync(a => a.Email == email && a.Password == korisnikId);
+                        if (admin != null)
+                        {
+                            _context.Add(film);
+                            await _context.SaveChangesAsync();
+                            return RedirectToAction(nameof(AdminsPanel));
+                        }
+                        else {
+                            _context.Add(film);
+                            await _context.SaveChangesAsync();
+                            return RedirectToAction(nameof(AdminsPanel));
+                        }
+                    }
+                }
+
+                
             }
+
             return View(film);
         }
+
 
         // GET: Movie/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -145,7 +172,7 @@ namespace OOAD_G6_najjaci_tim.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(AdminsPanel));
             }
             return View(film);
         }
@@ -176,7 +203,7 @@ namespace OOAD_G6_najjaci_tim.Controllers
             var film = await _context.Film.FindAsync(id);
             _context.Film.Remove(film);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(AdminsPanel));
         }
 
         private bool FilmExists(int id)

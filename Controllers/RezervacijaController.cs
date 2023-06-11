@@ -26,8 +26,19 @@ namespace OOAD_G6_najjaci_tim.Controllers
         // GET: Rezervacija
         public async Task<IActionResult> Index()
         {
+            if (_cache.TryGetValue("KorisnikId", out int korisnikId))
+                ViewData["IdKorisnikSaNalogom"] = korisnikId;
+           var r= await _context.Rezervacija
+         .Include(r => r.Film)
+         .Include(r => r.KorisnikSaNalogom)
+         .Where(r => r.IdKorisnikSaNalogom == korisnikId)
+         .ToListAsync();
+            return View(r);
+        }
+        public async Task<IActionResult> ForAdmin()
+        {
             var applicationDbContext = _context.Rezervacija.Include(r => r.Film).Include(r => r.KorisnikSaNalogom);
-            return View(await applicationDbContext.ToListAsync());
+            return View("ForAdmin",await applicationDbContext.ToListAsync());
         }
 
         // GET: Rezervacija/Details/5
@@ -149,7 +160,7 @@ namespace OOAD_G6_najjaci_tim.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ForAdmin));
             }
             ViewData["IdFilm"] = new SelectList(_context.Film, "Id", "Id", rezervacija.IdFilm);
             ViewData["IdKorisnikSaNalogom"] = new SelectList(_context.KorisnikSaNalogom, "Id", "Id", rezervacija.IdKorisnikSaNalogom);
@@ -184,7 +195,7 @@ namespace OOAD_G6_najjaci_tim.Controllers
             var rezervacija = await _context.Rezervacija.FindAsync(id);
             _context.Rezervacija.Remove(rezervacija);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(ForAdmin));
         }
 
         private bool RezervacijaExists(int id)

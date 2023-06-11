@@ -63,6 +63,9 @@ namespace OOAD_G6_najjaci_tim.Controllers
         {
             if (ModelState.IsValid)
             {
+                _cache.Set("KorisnikEmail", korisnikSaNalogom.Email, TimeSpan.FromDays(30)); 
+                _cache.Set("KorisnikPassword", korisnikSaNalogom.Password, TimeSpan.FromDays(30));
+
                 _cache.Set("KorisnikkId", korisnikSaNalogom.Id, TimeSpan.FromDays(30));
                 _context.Add(korisnikSaNalogom);
                 await _context.SaveChangesAsync();
@@ -134,10 +137,18 @@ namespace OOAD_G6_najjaci_tim.Controllers
                    .FirstOrDefaultAsync(kr => kr.Email == korisnikSaNalogom.Email && kr.Password == korisnikSaNalogom.Password);
                 if (korisnik != null)
                 {
+                    _cache.Set("KorisnikEmail", korisnikSaNalogom.Email, TimeSpan.FromDays(30)); 
+                    _cache.Set("KorisnikPassword", korisnikSaNalogom.Password, TimeSpan.FromDays(30)); // Spremanje passworda u keš
+
                     _cache.Set("KorisnikId", korisnik.Id, TimeSpan.FromDays(30));
 
                     return RedirectToAction("Index", "Movie");
-                }else if (admin != null) { return RedirectToAction("Index", "Movie"); }
+                }else if (admin != null)
+                {
+                    _cache.Set("KorisnikEmail", korisnikSaNalogom.Email, TimeSpan.FromDays(30)); 
+                    _cache.Set("KorisnikPassword", korisnikSaNalogom.Password, TimeSpan.FromDays(30)); // Spremanje passworda u keš
+
+                    return RedirectToAction("AdminsPanel", "Movie"); }
                 else
                 {
                     

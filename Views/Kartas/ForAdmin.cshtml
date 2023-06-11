@@ -1,5 +1,4 @@
-﻿
-@model IEnumerable<OOAD_G6_najjaci_tim.Models.Karta>
+﻿@model IEnumerable<OOAD_G6_najjaci_tim.Models.Karta>
 
 @{
     ViewData["Title"] = "Index";
@@ -8,7 +7,7 @@
 <h1>Tickets</h1>
 
 <p>
-    <a asp-controller="Kartas" asp-action="ForAdmin" class="btn btn-primary">Go Back</a>
+    <a asp-controller="Rezervacija" asp-action="ForAdmin" class="btn btn-primary">Go Back</a>
 </p>
 <table class="table table-striped">
     <thead>
@@ -17,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.SjedisteUTerminu)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdKorisnikSaNalogom)
+                @Html.DisplayNameFor(model => model.KorisnikSaNalogom)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IdFilm)
@@ -28,7 +27,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Termin)
             </th>
-            
+            <th>
+                Film
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -49,14 +50,16 @@
                     @Html.DisplayFor(modelItem => item.Rezervacija.Id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Termin.Id)
+                    @Html.DisplayFor(modelItem => item.Termin.Vrijeme)
                 </td>
-               
+                <td>
+                    @item.Film.Ime
+                </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-                    <a asp-action="Filter" asp-route-genre="@item.IdKorisnikSaNalogom" class="btn btn-primary">TicketsForThisUser</a>
+                    <a asp-action="Filter" asp-route-genre="@item.KorisnikSaNalogom.Id" class="btn btn-primary">TicketsForThisUser</a>
                 </td>
             </tr>
         }
