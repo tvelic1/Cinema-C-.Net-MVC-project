@@ -135,7 +135,7 @@ namespace OOAD_G6_najjaci_tim.Controllers
             ViewData["IdKorisnikSaNalogom"] = new SelectList(_context.KorisnikSaNalogom, "Id", "Id", karta.IdKorisnikSaNalogom);
             ViewData["IdRezervacija"] = new SelectList(_context.Rezervacija, "Id", "Id", karta.IdRezervacija);
             ViewData["IdSjedisteUTerminu"] = new SelectList(_context.SjedisteUTerminu, "Id", "Id", karta.IdSjedisteUTerminu);
-            ViewData["IdTermin"] = new SelectList(_context.Termin, "Id", "Id", karta.IdTermin);
+            ViewData["IdTermin"] = new SelectList(_context.Termin, "Id", "Vrijeme", karta.IdTermin);
             ViewData["IdKorisnikSaNalogom"] = idKorisnikSaNalogom;
             ViewData["IdFilm"] = idFilm;
             ViewData["IdRezervacija"] = idRezervacija;
@@ -161,7 +161,7 @@ namespace OOAD_G6_najjaci_tim.Controllers
             ViewData["IdKorisnikSaNalogom"] = new SelectList(_context.KorisnikSaNalogom, "Id", "Id", karta.IdKorisnikSaNalogom);
             ViewData["IdRezervacija"] = new SelectList(_context.Rezervacija, "Id", "Id", karta.IdRezervacija);
             ViewData["IdSjedisteUTerminu"] = new SelectList(_context.SjedisteUTerminu, "Id", "Id", karta.IdSjedisteUTerminu);
-            ViewData["IdTermin"] = new SelectList(_context.Termin, "Id", "Id", karta.IdTermin);
+            ViewData["IdTermin"] = new SelectList(_context.Termin, "Id", "Vrijeme", karta.IdTermin);
             return View(karta);
         }
 
